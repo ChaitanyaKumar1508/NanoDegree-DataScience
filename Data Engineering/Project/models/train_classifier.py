@@ -65,7 +65,7 @@ def tokenize(text):
 
 def build_model(X,Y):
     '''
-    Creates and returns the pipeline(model)
+    Creates and returns a model that uses GridSearchCV
     
     Args:
         X,Y
@@ -82,7 +82,15 @@ def build_model(X,Y):
         ('tfidf', TfidfTransformer()),
         ('clf', MultiOutputClassifier(RandomForestClassifier(class_weight='balanced')))
     ])
-    return pipeline
+    parameters = {'vect__ngram_range':[(2,2),(2,2)],
+              'clf__estimator__n_estimators':[50, 100],
+              'clf__estimator__max_depth': [10, 50, None],
+              'clf__estimator__min_samples_leaf':[2, 6, 10]
+             }
+
+    gs = GridSearchCV(pipeline, parameters)
+    
+    return gs
 
 
 def evaluate_model(model, X_test, Y_test, category_names):
