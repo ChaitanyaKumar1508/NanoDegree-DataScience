@@ -92,7 +92,7 @@ def index():
         {
             'data': [
                 Bar(
-                    x=categories,
+                    x=categories.to_json(),
                     y=cat_count
                 )
             ],
