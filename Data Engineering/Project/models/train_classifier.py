@@ -26,6 +26,15 @@ nltk.download(['wordnet','punkt','stopwords'])
 
 
 def load_data(database_filepath):
+    '''
+    Function to load data from the Database
+    
+    Args : 
+        database_filepath : relative path of the database 
+        
+    Returns :
+        The features list X,y and the category names of features in y
+    '''
     name = 'sqlite:///' + database_filepath
     engine = create_engine(name)
     #engine = create_engine('sqlite:///DisasterResponse.db')
@@ -55,6 +64,12 @@ def tokenize(text):
 
 
 def build_model(X,Y):
+    '''
+    Creates and returns the pipeline(model)
+    
+    Args:
+        X,Y
+    '''
     vect = CountVectorizer(tokenizer=tokenize)
     X_vectorized = vect.fit_transform(X)
     keys, values = [], []
@@ -71,6 +86,13 @@ def build_model(X,Y):
 
 
 def evaluate_model(model, X_test, Y_test, category_names):
+    '''
+    Evaluates the model and returns the score 
+    
+    Args: 
+        model : trained model
+        X_test,Y_test and the category name of target variable
+    '''
     y_pred = model.predict(X_test)
     multi_f1_score = multioutput_f1score(Y_test,y_pred, beta = 1)
     overall_acc = (y_pred == Y_test).mean().mean()
@@ -79,6 +101,12 @@ def evaluate_model(model, X_test, Y_test, category_names):
  
 
 def multioutput_f1score(y_test,y_pred,beta=1):
+    '''
+    Calculates the f1 score for model
+    
+    Args:
+        y_test and y_pred
+    '''
     score_lst = []
     if isinstance(y_pred, pd.DataFrame) == True:
         y_pred = y_pred.values
@@ -94,6 +122,13 @@ def multioutput_f1score(y_test,y_pred,beta=1):
 
 
 def save_model(model, model_filepath):
+    '''
+    Saves the model as the name passed to this function
+    
+    Args:
+        model : trained model
+        model_filepath : name of the file (better if passed with .pkl extension)
+    '''
     pickle.dump(model, open(model_filepath, 'wb'))
 
 
