@@ -9,7 +9,7 @@ from nltk.tokenize import word_tokenize
 
 from flask import Flask
 from flask import render_template, request, jsonify
-from plotly.graph_objs import Bar
+from plotly.graph_objs import Bar, Heatmap
 from sklearn.externals import joblib
 from sqlalchemy import create_engine
 
@@ -49,6 +49,8 @@ def index():
     category_names = list(cat_count.index)
     cat_large_counts = cat_count.nlargest(5)
     cat_large_names = list(cat_large_counts.index)
+    category_map = df.iloc[:,4:].corr().values
+    category_names = list(df.iloc[:,4:].columns)
     
     # create visuals
     # TODO: Below is an example - modify to create your own visuals
@@ -87,6 +89,20 @@ def index():
                 'xaxis': {
                     'title': "Category"
                 }
+            }
+        },
+        {
+            'data': [
+                Heatmap(
+                    x=category_names,
+                    y=category_names[::-1],
+                    z=category_map
+                )    
+            ],
+
+            'layout': {
+                'title': 'Correlation Heatmap - Categories',
+                'xaxis': {'tickangle': -30}
             }
         },
         {
