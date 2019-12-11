@@ -12,3 +12,6 @@
     `python run.py`
 
 3. Go to http://0.0.0.0:3001/
+
+
+![Home Page](images/Title.png?raw=true "Optional Title")
