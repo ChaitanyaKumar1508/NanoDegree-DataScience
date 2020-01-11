@@ -17,3 +17,8 @@ This is Udacity Data Science Nanodegree's Capstone project. In this project we n
 ## Result
 
 Random Forest performs the best on the dataset provided which provides a F1 score of 66.3%.
+
+
+## Blog Post
+to know more about this in detail click on the following link:
+https://medium.com/@chaitanya.ck100/find-out-who-will-leave-you-a97b108da26
