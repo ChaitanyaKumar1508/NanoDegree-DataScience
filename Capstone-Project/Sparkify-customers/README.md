@@ -16,4 +16,4 @@ This is Udacity Data Science Nanodegree's Capstone project. In this project we n
 
 ## Result
 
-Gradient Boosted Tree Classifier performs the best on the dataset provided which provides a F1 score of 0.9067.
+Random Forest performs the best on the dataset provided which provides a F1 score of 66.3%.
